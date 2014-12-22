@@ -10,7 +10,8 @@
     "Font Awesome",
     "Polymer",
     "Icons",
-    "Icon Set"
+    "Icon Set",
+    "web-components"
   ],
   "dependencies": {
     "core-icon": "Polymer/core-icon",
