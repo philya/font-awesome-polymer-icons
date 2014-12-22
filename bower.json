@@ -21,6 +21,6 @@
   "homepage": "https://github.com/philya/font-awesome-polymer-icons",
   "ignore": [
     "**/.*",
-    "bower_components",
+    "bower_components"
   ]
 }
