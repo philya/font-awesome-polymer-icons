@@ -1,6 +1,6 @@
 {
   "name": "polymer-font-awesome-icons",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "Polymer/core-icon compatible iconset based on Font Awesome SVG font",
   "main": "update.js",
   "author": "Sacha Kyvner <philya@gmail.com>",

@@ -18,6 +18,8 @@ var // Request options (proxy?)
 		yml: rawRepo + "src/icons.yml",
 		svg: rawRepo + "src/assets/font-awesome/fonts/fontawesome-webfont.svg"
 	},
+	// Base icon width
+	iconWidth = 1792,
 	// Output SVG object
 	svg = {
 		begin: "<!doctype html>\n" +
@@ -28,17 +30,13 @@ var // Request options (proxy?)
 			"-->\n" +
 			"<link rel=\"import\" href=\"../core-icon/core-icon.html\">\n" +
 			"<link rel=\"import\" href=\"../core-iconset-svg/core-iconset-svg.html\">\n" +
-			"<core-iconset-svg id=\"fa\" iconSize=\"1792\">\n" +
+			"<core-iconset-svg id=\"fa\" iconSize=\"" + iconWidth + "\">\n" +
 			"<svg><defs>\n",
 		defs: "",
 		end: "</defs></svg></core-iconset-svg>"
 	},
 	// Icon template
-	template = Handlebars.compile(
-		"<g id=\"{{name}}\" transform=\"translate({{shiftX}} {{shiftY}})\">" +
-		"<g transform=\"scale(1 -1) translate(0 -1280)\">" +
-		"<path d=\"{{path}}\"/>" +
-		"</g></g>\n"),
+	template = Handlebars.compile("<g id=\"{{name}}\" transform=\"scale({{scaleX}} {{scaleY}}) translate({{shiftX}} {{shiftY}})\"><path d=\"{{path}}\"/></g>\n"),
 	// Icons object
 	icons = {},
 	// Pixel base size
@@ -46,14 +44,17 @@ var // Request options (proxy?)
 	// Generate icon and addit to output svg
 	generateIcon = function (name, svgPath, params) {
 		"use strict";
+		var iconSize = iconWidth / params.horizAdvX,
+			shiftX = -(-(iconWidth - params.horizAdvX) / 2);
+		iconSize = iconSize > 1 ? 1 : iconSize;
 		svg.defs += template(extend({
 			name: name,
 			path: svgPath
 		}, params, {
-			shiftX: -(-(14 * pixelBase - params.advWidth) / 2),
-			shiftY: -(-2 * pixelBase),
-			width: 14 * pixelBase,
-			height: 14 * pixelBase
+			scaleX: iconSize,
+			scaleY: -iconSize,
+			shiftX: shiftX < 0 ? 0 : shiftX,
+			shiftY: -(1280 + 2 * pixelBase)
 		}));
 	};
 
@@ -73,15 +74,15 @@ request(extend(true, requestOptions, {
 		});
 		console.log("Parsing icons ...");
 		lines.forEach(function (line) {
-			var match = line.match(
-					/^<glyph unicode="&#x([^"]+);"\s*(?:horiz-adv-x="(\d+)")?\s*d="([^"]+)"/
-				),
-				str;
+			var match = line.match(/^<glyph unicode="&#x([^"]+);"\s*(?:horiz-adv-x="(\d+)")?\s*d="([^"]+)"/),
+				unicode, svgPath, horizAdvX;
 			if (match) {
-				str = match[1];
-				if (icons[str]) {
-					generateIcon(icons[str], match[3], {
-						advWidth: match[2] ? match[2] : 1536
+				unicode = match[1];
+				horizAdvX = match[2];
+				svgPath = match[3];
+				if (icons[unicode]) {
+					generateIcon(icons[unicode], svgPath, {
+						horizAdvX: horizAdvX ? horizAdvX : 1536
 					});
 				}
 			}
