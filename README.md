@@ -17,5 +17,11 @@ Use the iconset
 
     <core-icon icon="fa:line-chart"></core-icon>
 
+# Update
+
+To update to the latest version of FontAwesome, just install node modules and run "update"
+
+    npm install
+    node update
 
 
