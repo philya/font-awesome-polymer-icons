@@ -1,4 +1,4 @@
-/* Updates fa-icons.html with latest font awesome icons */
+/* Updates fa-icons.html with latest Font Awesome icons */
 
 var // Node Modules
 	extend = require("extend"),
@@ -22,18 +22,16 @@ var // Request options (proxy?)
 	iconWidth = 1792,
 	// Output SVG object
 	svg = {
-		begin: "<!doctype html>\n" +
-			"<!--\n" +
+		begin: "<!--\n" +
 			"Polymer icon set generated from Font Awesome SVG Font\n" +
-			"using Font Awesome Polymer Icons Generator\n" +
-			"https://github.com/philya/font-awesome-polymer-icons-generator\n" +
+			"https://github.com/vangware/font-awesome-iconset\n" +
 			"-->\n" +
 			"<link rel=\"import\" href=\"../core-icon/core-icon.html\">\n" +
 			"<link rel=\"import\" href=\"../core-iconset-svg/core-iconset-svg.html\">\n" +
-			"<core-iconset-svg id=\"fa\" iconSize=\"" + iconWidth + "\">\n" +
+			"<core-iconset-svg name=\"fa\" size=\"" + iconWidth + "\">\n" +
 			"<svg><defs>\n",
 		defs: "",
-		end: "</defs></svg></core-iconset-svg>"
+		end: "</defs></svg>\n</core-iconset-svg>"
 	},
 	// Icon template
 	template = Handlebars.compile("<g id=\"{{name}}\" transform=\"scale({{scaleX}} {{scaleY}}) translate({{shiftX}} {{shiftY}})\"><path d=\"{{path}}\"/></g>\n"),
@@ -44,15 +42,15 @@ var // Request options (proxy?)
 	// Generate icon and addit to output svg
 	generateIcon = function (name, svgPath, params) {
 		"use strict";
-		var iconSize = iconWidth / params.horizAdvX,
+		var size = iconWidth / params.horizAdvX,
 			shiftX = -(-(iconWidth - params.horizAdvX) / 2);
-		iconSize = iconSize > 1 ? 1 : iconSize;
+		size = size > 1 ? 1 : size;
 		svg.defs += template(extend({
 			name: name,
 			path: svgPath
 		}, params, {
-			scaleX: iconSize,
-			scaleY: -iconSize,
+			scaleX: size,
+			scaleY: -size,
 			shiftX: shiftX < 0 ? 0 : shiftX,
 			shiftY: -(1280 + 2 * pixelBase)
 		}));

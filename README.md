@@ -1,17 +1,14 @@
-
 Font Awesome as a Polymer/core-iconset-svg component
-
-*Note* use the complete iconset for demo and development purposes only. Generate a custom component containing only icons you need using [font-awesome-polymer-icons-generator](https://github.com/philya/font-awesome-polymer-icons-generator)
 
 # Set Up
 
-    bower install font-awesome-polymer-icons
+    bower install font-awesome-iconset
 
 # Use
 
 Link your custom component alongside with other Polymer dependencies
 
-    <link rel="import" href="bower_components/font-awesome-polymer-icons/fa-icons.html">
+    <link rel="import" href="bower_components/font-awesome-iconset/fa-icons.html">
 
 Use the iconset
 
@@ -24,4 +21,4 @@ To update to the latest version of FontAwesome, just install node modules and ru
     npm install
     node update
 
-
+Soon there will be a production script to export only the icons to be used (like the original [font-awesome-polymer-icons-generator](https://github.com/philya/font-awesome-polymer-icons-generator) but in node)

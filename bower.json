@@ -1,8 +1,9 @@
 {
-  "name": "polymer-font-awesome-icons",
+  "name": "font-awesome-iconset",
   "version": "4.2.2",
   "authors": [
-    "Sacha Kyvner <philya@gmail.com>"
+    "Sacha Kyvner <philya@gmail.com>",
+    "Lucas Matías Ciruzzi <lucasmciruzzi@live.com>"
   ],
   "description": "Polymer/core-icon compatible iconset based on Font Awesome SVG font",
   "main": "fa-icons.html",
@@ -14,14 +15,17 @@
     "web-components"
   ],
   "dependencies": {
-    "core-icon": "Polymer/core-icon",
-    "core-iconset-svg": "Polymer/core-iconset-svg",
-    "polymer": "0.8.0"
+    "core-icon": "Polymer/core-icon#0.8-preview",
+    "core-icons": "Polymer/core-icons#0.8-preview",
+    "core-iconset-svg": "Polymer/core-iconset-svg#0.8-preview",
+    "polymer": "0.8-preview"
   },
   "license": "MIT",
-  "homepage": "https://github.com/philya/font-awesome-polymer-icons",
+  "homepage": "https://github.com/vangware/font-awesome-iconset",
   "ignore": [
     "**/.*",
-    "bower_components"
+    "bower_components",
+    "package.json",
+    "update.js"
   ]
 }
