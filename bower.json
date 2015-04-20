@@ -16,7 +16,7 @@
   "dependencies": {
     "core-icon": "Polymer/core-icon",
     "core-iconset-svg": "Polymer/core-iconset-svg",
-    "polymer": "Polymer/polymer"
+    "polymer": "0.8.0"
   },
   "license": "MIT",
   "homepage": "https://github.com/philya/font-awesome-polymer-icons",
