@@ -24,14 +24,14 @@ var // Request options (proxy?)
 	svg = {
 		begin: "<!--\n" +
 			"Polymer icon set generated from Font Awesome SVG Font\n" +
-			"https://github.com/vangware/font-awesome-iconset\n" +
+			"https://github.com/vangware/fontawesome-iconset\n" +
 			"-->\n" +
-			"<link rel=\"import\" href=\"../core-icon/core-icon.html\">\n" +
-			"<link rel=\"import\" href=\"../core-iconset-svg/core-iconset-svg.html\">\n" +
-			"<core-iconset-svg name=\"fa\" size=\"" + iconWidth + "\">\n" +
+			"<link rel=\"import\" href=\"../iron-icon/iron-icon.html\">\n" +
+			"<link rel=\"import\" href=\"../iron-iconset-svg/iron-iconset-svg.html\">\n" +
+			"<iron-iconset-svg name=\"fa\" size=\"" + iconWidth + "\">\n" +
 			"<svg><defs>\n",
 		defs: "",
-		end: "</defs></svg>\n</core-iconset-svg>"
+		end: "</defs></svg>\n</iron-iconset-svg>"
 	},
 	// Icon template
 	template = Handlebars.compile("<g id=\"{{name}}\" transform=\"scale({{scaleX}} {{scaleY}}) translate({{shiftX}} {{shiftY}})\"><path d=\"{{path}}\"/></g>\n"),
