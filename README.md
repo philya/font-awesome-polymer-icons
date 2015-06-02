@@ -1,23 +1,32 @@
 [Font Awesome](https://github.com/FortAwesome/Font-Awesome) as a [PolymerElements/iron-iconset-svg](https://github.com/PolymerElements/iron-iconset-svg) component.
 
 # Set Up
-````bash
+````sh
 bower install fontawesome-iconset
 ````
 # Use
 
 Link your custom component alongside with other Polymer dependencies
 ````html
-<link rel="import" href="bower_components/fontawesome-iconset/fa-icons.html">
+<link rel="import" href="bower_components/fontawesome-iconset/fa-all.html">
 ````
 Use the iconset
 ````html
 <iron-icon icon="fa:line-chart"></iron-icon>
 ````
+You also can refer to an specific category of icons:
+````html
+<link rel="import" href="bower_components/fontawesome-iconset/fa-gender.html">
+````
+And use it like this:
+````html
+<iron-icon icon="fa-gender:venus"></iron-icon>
+````
+
 # Update
 
 To update to the latest version of FontAwesome, just install node modules and run "update"
-````bash
+````sh
 npm install
 node update
 ````
