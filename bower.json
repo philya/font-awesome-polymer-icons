@@ -1,12 +1,12 @@
 {
   "name": "fontawesome-iconset",
-  "version": "4.2.5",
+  "version": "4.3.0",
   "authors": [
     "Sacha Kyvner <philya@gmail.com>",
     "Lucas Matías Ciruzzi <lucasmciruzzi@live.com>"
   ],
   "description": "Polymer/core-icon compatible iconset based on Font Awesome SVG font",
-  "main": "fa-icons.html",
+  "main": "fa-all.html",
   "keywords": [
     "Font Awesome",
     "Polymer",

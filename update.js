@@ -22,15 +22,17 @@ var // Request options (proxy?)
 	iconWidth = 1792,
 	// Output SVG object
 	svg = {
-		begin: "<!--\n" +
+		begin: Handlebars.compile("<!--\n" +
 			"Polymer icon set generated from Font Awesome SVG Font\n" +
-			"https://github.com/vangware/fontawesome-iconset\n" +
+			"https://github.com/vangware/fontawesome-iconset\n\n" +
+			"@element iron-iconset-svg\n" +
+			"@demo demo.html\n" +
 			"-->\n" +
 			"<link rel=\"import\" href=\"../iron-icon/iron-icon.html\">\n" +
 			"<link rel=\"import\" href=\"../iron-iconset-svg/iron-iconset-svg.html\">\n" +
-			"<iron-iconset-svg name=\"fa\" size=\"" + iconWidth + "\">\n" +
-			"<svg><defs>\n",
-		defs: "",
+			"<iron-iconset-svg name=\"{{name}}\" size=\"" + iconWidth + "\">\n" +
+			"<svg><defs>\n"),
+		defs: {},
 		end: "</defs></svg>\n</iron-iconset-svg>"
 	},
 	// Icon template
@@ -40,13 +42,14 @@ var // Request options (proxy?)
 	// Pixel base size
 	pixelBase = 128,
 	// Generate icon and addit to output svg
-	generateIcon = function (name, svgPath, params) {
+	generateIcon = function (iconData, svgPath, params) {
 		"use strict";
 		var size = iconWidth / params.horizAdvX,
-			shiftX = -(-(iconWidth - params.horizAdvX) / 2);
+			shiftX = -(-(iconWidth - params.horizAdvX) / 2),
+			def;
 		size = size > 1 ? 1 : size;
-		svg.defs += template(extend({
-			name: name,
+		def = template(extend({
+			name: iconData.id,
 			path: svgPath
 		}, params, {
 			scaleX: size,
@@ -54,6 +57,13 @@ var // Request options (proxy?)
 			shiftX: shiftX < 0 ? 0 : shiftX,
 			shiftY: -(1280 + 2 * pixelBase)
 		}));
+		iconData.categories.forEach(function (category) {
+			if (svg.defs[category]) {
+				svg.defs[category].push(def);
+			} else {
+				svg.defs[category] = [def];
+			}
+		});
 	};
 
 console.log("Request YML ...");
@@ -68,7 +78,15 @@ request(extend(true, requestOptions, {
 		var yamlIcons = yaml.safeLoad(iconsYaml).icons,
 			lines = fontData.toString("utf8").split("\n");
 		yamlIcons.forEach(function (icon) {
-			icons[icon.unicode] = icon.id;
+			var categories = icon.categories;
+			icons[icon.unicode] = {
+				id: icon.id,
+				categories: ["all"]
+			};
+			categories.forEach(function(category) {
+				var normalizedCategory = category.toLowerCase().replace(/ /g, "-").replace("-icons", "");
+				icons[icon.unicode].categories.push(normalizedCategory);
+			});
 		});
 		console.log("Parsing icons ...");
 		lines.forEach(function (line) {
@@ -85,7 +103,9 @@ request(extend(true, requestOptions, {
 				}
 			}
 		});
-		console.log("Writing icons to file ...");
-		fs.writeFileSync("fa-icons.html", svg.begin + svg.defs + svg.end);
+		console.log("Writing icons to files ...");
+		for (var def in svg.defs) {
+			fs.writeFileSync("fa-" + def + ".html", svg.begin({ name: (def === "all") ? "fa" : ("fa-" + def) }) + svg.defs[def].join("") + svg.end);
+		}
 	});
 });
