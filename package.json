@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "extend": "^2.0.0",
-    "handlebars": "^3.0.0",
+    "handlebars": "^4.5.3",
     "js-yaml": "^3.2.6",
     "request": "^2.53.0"
   },
